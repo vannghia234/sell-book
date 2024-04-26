@@ -39,15 +39,13 @@ ThemeData themeData() {
             fontSize: 18,
             fontWeight: FontWeight.bold),
         iconTheme: IconThemeData(color: Colors.black)),
-    //fontFamily: 'Muli',
+    fontFamily: 'Muli',
     inputDecorationTheme: inputDecorationTheme(),
     iconTheme: const IconThemeData(),
-
     textTheme: const TextTheme(
         bodyLarge: TextStyle(color: kTextColor, fontSize: 18),
         bodySmall: TextStyle(color: kTextColor, fontSize: 18),
         bodyMedium: TextStyle(color: kTextColor, fontSize: 18)),
-
     scaffoldBackgroundColor: Colors.white,
   );
 }
