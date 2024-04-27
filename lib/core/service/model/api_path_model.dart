@@ -9,7 +9,7 @@ class APIPathModel {
   final String endpoint;
   final Map<String, String>? params;
 
-  String get stringPath {
+  String get toStringPath {
     String path = serviceHost;
     path += endpoint;
     if (params != null) {

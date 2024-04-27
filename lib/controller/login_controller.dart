@@ -2,7 +2,7 @@
 import 'package:brainiaccommerce2/core/service/client/local_service_client.dart';
 import 'package:get/get.dart';
 
-class LoginAccountInfoController extends GetxController {
+class LoginController extends GetxController {
   @override
   void onInit() {
     getAccessToken();
