@@ -1,10 +1,20 @@
+import 'package:brainiaccommerce2/controller/authentication_controller.dart';
+import 'package:brainiaccommerce2/controller/cart_controller.dart';
 import 'package:brainiaccommerce2/core/ui/style/base_text_style.dart';
 import 'package:brainiaccommerce2/screens/login_screen.dart';
 import 'package:brainiaccommerce2/shared/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  loadController();
   runApp(MyApp());
+}
+
+void loadController() {
+  Get.put(AuthenticationController());
+  Get.put(CartController());
 }
 
 class MyApp extends StatelessWidget {
@@ -12,7 +22,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: "Brainiac ECommerce",
       debugShowCheckedModeBanner: false,
       home: LoginScreen(),
@@ -44,9 +54,8 @@ ThemeData themeData() {
 
 InputDecorationTheme inputDecorationTheme() {
   return InputDecorationTheme(
-      labelStyle: const TextStyle(fontSize: 20),
+      labelStyle: const TextStyle(fontSize: 18, color: kPrimaryColor),
       hintStyle: const TextStyle(),
-      focusColor: kPrimaryColor,
       contentPadding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
       floatingLabelBehavior: FloatingLabelBehavior.always,
       focusedBorder: outlineInputBorder(),

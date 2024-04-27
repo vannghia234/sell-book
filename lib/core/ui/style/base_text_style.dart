@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class BaseTextStyle {
-  static String baseFont = "Muli";
+  static String baseFont = "Poppins";
 
   static TextStyle label1({Color? color}) {
     return TextStyle(

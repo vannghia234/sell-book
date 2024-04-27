@@ -2,22 +2,24 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:brainiaccommerce2/core/error/exception.dart';
+import 'package:brainiaccommerce2/core/service/client/local_service_client.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io' as Io;
 
 const _defaultApiWaitingDuration = Duration(seconds: 30);
 const _defaultApiGetFileWaitingDuration = Duration(minutes: 5);
 
-class NotFoundException {}
-
 class ApiServiceClient {
   static Future<Map<String, String>> _headers({
     bool withToken = true,
   }) async {
-    // String? token = await AuthenticationUseCase().getAccessToken();
+    String? token = await LocalServiceClient.get("accessToken");
+    if (token != null) {
+      print("token from score ${token}");
+    }
     return {
       HttpHeaders.acceptHeader: "application/json",
-      // if (withToken == true) HttpHeaders.authorizationHeader: "Bearer $token",
+      if (withToken == true) HttpHeaders.authorizationHeader: "Bearer $token",
       HttpHeaders.contentTypeHeader: "application/json"
     };
   }
@@ -41,6 +43,38 @@ class ApiServiceClient {
       Map<String, dynamic> result =
           json.decode(utf8.decode(response.bodyBytes));
       return result;
+    } on Io.SocketException catch (_) {
+      throw ServerException();
+    } catch (e) {
+      if (isSecondTime) {
+        rethrow;
+      } else {
+        return await get(
+            uri: uri,
+            withToken: withToken,
+            apiWaitingDuration: apiWaitingDuration,
+            isSecondTime: true);
+      }
+    }
+  }
+
+  static Future<dynamic> getDynamic({
+    required String uri,
+    bool withToken = true,
+    Duration? apiWaitingDuration,
+    bool isSecondTime = false,
+  }) async {
+    try {
+      final client = http.Client();
+      Map<String, String> headers = await _headers(withToken: withToken);
+
+      /// Force close after defined waiting time
+      Future.delayed(apiWaitingDuration ?? _defaultApiWaitingDuration)
+          .whenComplete(() => client.close());
+      http.Response response =
+          await client.get(Uri.parse(uri), headers: headers);
+
+      return json.decode(utf8.decode(response.bodyBytes));
     } on Io.SocketException catch (_) {
       throw ServerException();
     } catch (e) {
@@ -138,6 +172,7 @@ class ApiServiceClient {
     bool isAuthentication = false,
   }) async {
     try {
+      print("url ${uri}");
       var url = Uri.parse(uri);
       var request = http.MultipartRequest('POST', url);
       // Thêm dữ liệu form-data
@@ -149,6 +184,7 @@ class ApiServiceClient {
 
       // Đọc nội dung của phản hồi
       var responseBody = await response.stream.bytesToString();
+      print('Failed to ${response.statusCode} ');
 
       // Kiểm tra mã trạng thái của phản hồi
       if (response.statusCode == 200) {

@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void showSnackBar({required String content}) {
+enum SnackbarState { success, fail }
+
+void showSnackBar({required String content, SnackbarState? state}) {
   Get.snackbar('Thông báo', content,
-      icon: const Icon(Icons.notification_important),
+      icon: (state == null)
+          ? const Icon(
+              Icons.check_circle,
+              color: Colors.green,
+            )
+          : Icon(
+              Icons.error,
+              color: Colors.red,
+            ),
       shouldIconPulse: true,
       isDismissible: true,
-      titleText: const Text(
+      barBlur: 20,
+      titleText: Text(
         'Thông báo',
-        style: TextStyle(fontWeight: FontWeight.bold, color: kPrimaryColor),
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: (state == null) ? Colors.green : kPrimaryColor),
       ));
 }
 
-const kPrimaryColor = Color(0xffEF6969);
+const kPrimaryColor = Color(0xffDB3022);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,

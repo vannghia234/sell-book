@@ -11,78 +11,63 @@ class PopularItemsWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
         child: Row(
           children: [
-            //for(int i=0; i < 5; i++)
-            //Single Item
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7),
-              child: Container(
-                width: 170,
-                height: 225,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 3,
-                        blurRadius: 10,
-                        offset: Offset(0, 3),
-                      )
-                    ]),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, "itemScreen");
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Image.asset(
-                              "images/campus_1.jpg",
-                              height: 130,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          "Tập New Repete",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          "Campus NB-ANRE96",
-                          style: TextStyle(
-                            fontSize: 15,
-                            //fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "\14.850đ",
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Icon(
-                              Icons.favorite_border,
-                              color: Colors.red,
-                              size: 26,
-                            ),
-                          ],
-                        ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 10,
+                          offset: Offset(0, 3),
+                        )
                       ]),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      "images/campus_1.jpg",
+                      height: 130,
+                    ),
+                  ),
                 ),
-              ),
+                Text(
+                  "Bút Lông Dầu",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  "Mực Đỏ",
+                  style: TextStyle(
+                    fontSize: 15,
+                    //fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "\12.150đ",
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Icon(
+                      Icons.favorite_border,
+                      color: Colors.red,
+                      size: 26,
+                    ),
+                  ],
+                ),
+              ],
             ),
 
             //Single Item

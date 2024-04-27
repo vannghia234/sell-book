@@ -1,3 +1,4 @@
+import 'package:brainiaccommerce2/shared/constant.dart';
 import 'package:flutter/material.dart';
 
 class CommonButton extends StatelessWidget {
@@ -26,7 +27,7 @@ class CommonButton extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18)),
-              backgroundColor: backgroundColor ?? Colors.blueAccent,
+              backgroundColor: backgroundColor ?? kPrimaryColor,
             ),
             onPressed: press,
             child: Text(

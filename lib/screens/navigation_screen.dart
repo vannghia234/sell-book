@@ -1,6 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:brainiaccommerce2/screens/cart_screen.dart';
-import 'package:brainiaccommerce2/screens/favorites_screen.dart';
+import 'package:brainiaccommerce2/screens/favourite/favourite_screen.dart';
 import 'package:brainiaccommerce2/screens/home_screen.dart';
 import 'package:brainiaccommerce2/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,12 +19,13 @@ class _NavigationScreenState extends State<NavigationScreen> {
   List<Widget> pages = [
     HomeScreen(),
     CartScreen(),
-    FavoritesScreen(),
+    FavouriteScreen(),
     ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: IndexedStack(
         index: pageIndex,
         children: pages,

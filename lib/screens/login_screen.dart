@@ -1,12 +1,32 @@
+import 'package:brainiaccommerce2/controller/authentication_controller.dart';
 import 'package:brainiaccommerce2/screens/forgotpass_screen.dart';
 import 'package:brainiaccommerce2/screens/navigation_screen.dart';
 import 'package:brainiaccommerce2/screens/signup_screen.dart';
+import 'package:brainiaccommerce2/shared/constant.dart';
 import 'package:brainiaccommerce2/widgets/common_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final controllerUsername = TextEditingController();
+  final controllerPassword = TextEditingController();
+
+  @override
+  void dispose() {
+    controllerUsername.dispose();
+    controllerPassword.dispose();
+
+    super.dispose();
+  }
+
+  bool isHidden = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,23 +45,33 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   TextField(
+                    controller: controllerUsername,
                     cursorColor: Colors.black,
                     decoration: InputDecoration(
-                      labelText: "Enter Email",
-                      hintText: "Enter your mail",
-                      prefixIcon: Icon(Icons.email),
+                      labelText: "Username",
+                      hintText: "Enter your username",
+                      prefixIcon: Icon(Icons.person),
                     ),
                   ),
                   SizedBox(
                     height: 24,
                   ),
                   TextField(
-                    obscureText: true,
+                    controller: controllerPassword,
+                    obscureText: isHidden,
                     decoration: InputDecoration(
-                      labelText: "Enter Password",
+                      labelText: "Password",
                       hintText: "Enter your password",
                       prefixIcon: Icon(Icons.lock),
-                      suffixIcon: Icon(Icons.remove_red_eye),
+                      suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isHidden = !isHidden;
+                            });
+                          },
+                          child: (isHidden)
+                              ? Icon(Icons.visibility)
+                              : Icon(Icons.visibility_off)),
                     ),
                   ),
                   Align(
@@ -57,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                       child: Text(
                         "Forgot password?",
                         style: TextStyle(
-                          color: Color.fromARGB(255, 60, 159, 234),
+                          color: kPrimaryColor,
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
@@ -67,13 +97,36 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     height: 40,
                   ),
-                  CommonButton(text: "Login", press: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => NavigationScreen(),
-                          ));
-                  }),
+                  CommonButton(
+                      text: "Login",
+                      press: () async {
+                        if (this.controllerUsername.text.isEmpty ||
+                            this.controllerPassword.text.isEmpty) {
+                          showSnackBar(
+                              content: "Please fill in all Fields",
+                              state: SnackbarState.fail);
+                          return;
+                        }
+                        AuthenticationController x = Get.find();
+                        var isSuccess = await x.login(
+                            accountId: controllerUsername.text,
+                            password: controllerPassword.text);
+                        if (isSuccess) {
+                          showSnackBar(content: "Login Successfully");
+                          await Future.delayed(Duration(seconds: 1));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NavigationScreen(),
+                              ));
+                          return;
+                        } else {
+                          showSnackBar(
+                              content: "Login Failure",
+                              state: SnackbarState.fail);
+                          return;
+                        }
+                      }),
                   SizedBox(
                     height: 10,
                   ),
@@ -98,7 +151,7 @@ class LoginScreen extends StatelessWidget {
                         child: Text(
                           "Sign Up Here",
                           style: TextStyle(
-                            color: Color.fromARGB(255, 60, 159, 234),
+                            color: kPrimaryColor,
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
