@@ -18,10 +18,8 @@ class APIServicePath {
       endpoint: '/Category/getList',
       params: {"accountID": accID}).toStringPath;
 
-  static String getProducts(
-          {required String accID, required String categoryID}) =>
-      APIPathModel(
-          serviceHost: baseUrl,
-          endpoint: '/Product/getListByCatId',
-          params: {"accountID": accID, "categoryID": categoryID}).toStringPath;
+  static String getProducts({required String accID}) => APIPathModel(
+      serviceHost: baseUrl,
+      endpoint: '/Product/getList',
+      params: {"accountID": accID}).toStringPath;
 }

@@ -12,7 +12,7 @@ void showSnackBar({required String content, SnackbarState? state}) {
             )
           : Icon(
               Icons.error,
-              color: Colors.red,
+              color: kPrimaryColor,
             ),
       shouldIconPulse: true,
       isDismissible: true,

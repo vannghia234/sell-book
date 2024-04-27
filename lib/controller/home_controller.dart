@@ -1,16 +1,15 @@
 import 'package:brainiaccommerce2/core/service/client/api_service_client.dart';
 import 'package:brainiaccommerce2/core/service/locator/api_service_path.dart';
 import 'package:brainiaccommerce2/model/category_model.dart';
+import 'package:brainiaccommerce2/model/product_model.dart';
 import 'package:brainiaccommerce2/model/user_model.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   @override
   Future<void> onInit() async {
-    loadUserInfo();
     super.onInit();
   }
-
 
   Rx<UserModel> user = UserModel().obs;
 
@@ -23,24 +22,28 @@ class HomeController extends GetxController {
     print("Loaded UserModel ${user.toJson()}");
   }
 
-  Future<CategoryModel> getCategories() async {
+  Future<List<CategoryModel>> getCategories() async {
+    await loadUserInfo();
     print("user ${user.value.accountId}");
     var value = await ApiServiceClient.getDynamic(
       uri: APIServicePath.getCategories(accID: user.value.accountId!),
     );
-    CategoryModel model = CategoryModel.fromJson(value);
-    print("getCategories ${model.toJson()}");
+    List<CategoryModel> list =
+        (value as List).map((e) => CategoryModel.fromJson(e)).toList();
+    print("getCategories ${list[0].toJson()}");
 
-    return model;
+    return list;
   }
 
-  Future<dynamic> getListByCatID(String catID) async {
+  Future<List<ProductModel>> getListProduct() async {
+    await loadUserInfo();
     print("user ${user.value.accountId}");
     var value = await ApiServiceClient.getDynamic(
-      uri: APIServicePath.getProducts(
-          accID: user.value.accountId!, categoryID: catID),
+      uri: APIServicePath.getProducts(accID: user.value.accountId!),
     );
-    // CategoryModel model = CategoryModel.fromJson(value);
-    print("getCategories ${value}");
+    List<ProductModel> list =
+        (value as List).map((e) => ProductModel.fromJson(e)).toList();
+    print("load product ${list[0].toJson()}");
+    return list;
   }
 }

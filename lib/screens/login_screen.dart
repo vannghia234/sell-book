@@ -1,5 +1,4 @@
 import 'package:brainiaccommerce2/controller/authentication_controller.dart';
-import 'package:brainiaccommerce2/screens/forgotpass_screen.dart';
 import 'package:brainiaccommerce2/screens/navigation_screen.dart';
 import 'package:brainiaccommerce2/screens/signup_screen.dart';
 import 'package:brainiaccommerce2/shared/constant.dart';
@@ -36,9 +35,12 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("images/brainiac.png"),
+            Image.asset(
+              "assets/images/logo-slack.png",
+              height: 100,
+            ),
             SizedBox(
-              height: 20,
+              height: 50,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -74,26 +76,26 @@ class _LoginScreenState extends State<LoginScreen> {
                               : Icon(Icons.visibility_off)),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ForgotPassScreen(),
-                            ));
-                      },
-                      child: Text(
-                        "Forgot password?",
-                        style: TextStyle(
-                          color: kPrimaryColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Align(
+                  //   alignment: Alignment.bottomRight,
+                  //   child: TextButton(
+                  //     onPressed: () {
+                  //       Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //             builder: (context) => ForgotPassScreen(),
+                  //           ));
+                  //     },
+                  //     child: Text(
+                  //       "Forgot password?",
+                  //       style: TextStyle(
+                  //         color: kPrimaryColor,
+                  //         fontSize: 18,
+                  //         fontWeight: FontWeight.w600,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 40,
                   ),
@@ -153,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             color: kPrimaryColor,
                             fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),

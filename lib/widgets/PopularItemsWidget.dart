@@ -1,348 +1,73 @@
+import 'package:brainiaccommerce2/core/ui/style/base_text_style.dart';
+import 'package:brainiaccommerce2/shared/constant.dart';
 import 'package:flutter/material.dart';
 
-class PopularItemsWidget extends StatelessWidget {
-  //const PopularItemsWidget({super.key});
+class ProductCard extends StatelessWidget {
+  const ProductCard({
+    super.key,
+    required this.name,
+    required this.price,
+    required this.imgUrl,
+    required this.description,
+  });
+  final String name;
+  final String price;
+  final String imgUrl;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(2),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 10,
-                          offset: Offset(0, 3),
-                        )
-                      ]),
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      "images/campus_1.jpg",
-                      height: 130,
-                    ),
-                  ),
-                ),
-                Text(
-                  "Bút Lông Dầu",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  "Mực Đỏ",
-                  style: TextStyle(
-                    fontSize: 15,
-                    //fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "\12.150đ",
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Icon(
-                      Icons.favorite_border,
-                      color: Colors.red,
-                      size: 26,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-
-            //Single Item
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7),
-              child: Container(
-                width: 170,
-                height: 225,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 3,
-                        blurRadius: 10,
-                        offset: Offset(0, 3),
-                      )
-                    ]),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          child: Image.asset(
-                            "images/but_1.jpg",
-                            height: 130,
-                          ),
-                        ),
-                        Text(
-                          "Bút Lông Dầu",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          "Mực Đỏ",
-                          style: TextStyle(
-                            fontSize: 15,
-                            //fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "\12.150đ",
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Icon(
-                              Icons.favorite_border,
-                              color: Colors.red,
-                              size: 26,
-                            ),
-                          ],
-                        ),
-                      ]),
-                ),
+    return SizedBox(
+      width: 140,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 9,
+                  )
+                ]),
+            child: Container(
+              alignment: Alignment.center,
+              child: Image.network(
+                imgUrl,
+                height: 130,
+                fit: BoxFit.contain,
               ),
             ),
-
-            //Single Item
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7),
-              child: Container(
-                width: 170,
-                height: 225,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 3,
-                        blurRadius: 10,
-                        offset: Offset(0, 3),
-                      )
-                    ]),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          child: Image.asset(
-                            "images/matngu_1.jpg",
-                            height: 130,
-                          ),
-                        ),
-                        Text(
-                          "Lớp Học Mật Ngữ ",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          "Tập 7",
-                          style: TextStyle(
-                            fontSize: 13,
-                            //fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "\20.750đ",
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Icon(
-                              Icons.favorite_border,
-                              color: Colors.red,
-                              size: 26,
-                            ),
-                          ],
-                        ),
-                      ]),
-                ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            name,
+            style: BaseTextStyle.label2(),
+          ),
+          Text(
+            description,
+            style: BaseTextStyle.body3(color: Colors.grey.shade500),
+          ),
+          SizedBox(height: 4),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "${price}đ",
+                style: BaseTextStyle.label2(color: kPrimaryColor),
               ),
-            ),
-
-            //Single Item
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7),
-              child: Container(
-                width: 170,
-                height: 225,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 3,
-                        blurRadius: 10,
-                        offset: Offset(0, 3),
-                      )
-                    ]),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          child: Image.asset(
-                            "images/Takeyo_a4_1.jpg",
-                            height: 130,
-                          ),
-                        ),
-                        Text(
-                          "Giấy Vẽ 20 Tờ",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          "Takeyo A4 8734",
-                          style: TextStyle(
-                            fontSize: 15,
-                            //fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "\20.700đ",
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Icon(
-                              Icons.favorite_border,
-                              color: Colors.red,
-                              size: 26,
-                            ),
-                          ],
-                        ),
-                      ]),
-                ),
+              Icon(
+                Icons.favorite_border,
+                color: Colors.red,
+                size: 26,
               ),
-            ),
-
-            //Single Item
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7),
-              child: Container(
-                width: 170,
-                height: 225,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 3,
-                        blurRadius: 10,
-                        offset: Offset(0, 3),
-                      )
-                    ]),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          child: Image.asset(
-                            "images/duka_1.jpg",
-                            height: 130,
-                          ),
-                        ),
-                        Text(
-                          "Đồ Chơi Duka",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          "Phát Triển Trí Tuệ ",
-                          style: TextStyle(
-                            fontSize: 15,
-                            //fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "\414.000đ",
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Icon(
-                              Icons.favorite_border,
-                              color: Colors.red,
-                              size: 26,
-                            ),
-                          ],
-                        ),
-                      ]),
-                ),
-              ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }

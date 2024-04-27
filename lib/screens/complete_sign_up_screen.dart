@@ -106,9 +106,12 @@ class _CompleteSignUpScreenState extends State<CompleteSignUpScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("images/brainiac.png"),
+            Image.asset(
+              "assets/images/logo-slack.png",
+              height: 100,
+            ),
             SizedBox(
-              height: 10,
+              height: 25,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -245,7 +248,7 @@ class _CompleteSignUpScreenState extends State<CompleteSignUpScreen> {
                           style: TextStyle(
                             color: kPrimaryColor,
                             fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),

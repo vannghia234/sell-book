@@ -46,9 +46,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("images/brainiac.png"),
+            Image.asset(
+              "assets/images/logo-slack.png",
+              height: 100,
+            ),
             SizedBox(
-              height: 10,
+              height: 25,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -96,11 +99,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   CommonButton(
                     text: "Continue",
                     press: () {
-                      if(phoneNumberController.text.length != 10){
+                      if (phoneNumberController.text.length != 10) {
                         showSnackBar(
-                              content: "Phone number must be 10 characters",
-                              state: SnackbarState.fail);
-                          return;
+                            content: "Phone number must be 10 characters",
+                            state: SnackbarState.fail);
+                        return;
                       }
                       Navigator.push(
                           context,
@@ -139,9 +142,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: Text(
                           "Login Here",
                           style: TextStyle(
-                            color: Color.fromARGB(255, 60, 159, 234),
+                            color: kPrimaryColor,
                             fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),
