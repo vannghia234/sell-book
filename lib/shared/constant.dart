@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 
 enum SnackbarState { success, fail }
+
+void showLoadingAnimation(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+            child: Lottie.asset('assets/animations/loadingg.json',
+                width: 140, height: 140)),
+      );
+    },
+  );
+}
 
 void showSnackBar({required String content, SnackbarState? state}) {
   Get.snackbar('Thông báo', content,
@@ -23,6 +39,13 @@ void showSnackBar({required String content, SnackbarState? state}) {
             fontWeight: FontWeight.bold,
             color: (state == null) ? Colors.green : kPrimaryColor),
       ));
+}
+
+String formatVND(int amount) {
+  // Tạo một đối tượng NumberFormat để định dạng số thành tiền Việt Nam đồng
+  final formatter = NumberFormat("#,### Đ", "vi");
+  // Sử dụng phương thức format() để định dạng số
+  return formatter.format(amount);
 }
 
 const kPrimaryColor = Color(0xffDB3022);

@@ -1,65 +1,46 @@
+import 'package:brainiaccommerce2/controller/cart_controller.dart';
+import 'package:brainiaccommerce2/model/cart_item_model.dart';
+import 'package:brainiaccommerce2/screens/cart_screen.dart';
+import 'package:brainiaccommerce2/shared/constant.dart';
 import 'package:brainiaccommerce2/widgets/container_buton_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../screens/cart_screen.dart';
-// import '../screens/payment_method_screen.dart';
+import 'package:get/get.dart';
 
 class ItemBottomNavBar extends StatelessWidget {
-  //const ItemBottomNavBar({super.key});
+  const ItemBottomNavBar(
+      {super.key,
+      required this.url,
+      required this.discription,
+      required this.price,
+      required this.name,
+      required this.id});
+  final String url, discription, price, name, id;
 
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      elevation: 0,
+      color: Colors.white,
       child: Container(
+        alignment: Alignment.center,
         padding: EdgeInsets.symmetric(
           horizontal: 20,
         ),
         height: 70,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              children: [
-                Text(
-                  "Total",
-                  style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  width: 15,
-                ),
-                Text(
-                  "\14.850đ",
-                  style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,
-                  ),
-                ),
-              ],
-            ),
-            // ElevatedButton.icon(
-            //   onPressed: () {},
-            //   style: ButtonStyle(
-            //     backgroundColor: MaterialStateProperty.all(Colors.red),
-            //     padding: MaterialStateProperty.all(
-            //       EdgeInsets.symmetric(
-            //         vertical: 13,
-            //         horizontal: 15,
-            //       ),
-            //     ),
-            //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            //       RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(20),
-            //       ),
-            //     ),
-            //   ),
-            SizedBox(height: 20),
             InkWell(
-              onTap: () {
+              onTap: () async {
+                showLoadingAnimation(context);
+                CartController controller = Get.find();
+                var x = CartItemModel(
+                    id: id, imgUrl: url, name: name, price: price);
+                controller.addToCard(x);
+                await Future.delayed(Duration(milliseconds: 700));
+                Navigator.pop(context);
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -67,10 +48,10 @@ class ItemBottomNavBar extends StatelessWidget {
                     ));
               },
               child: SizedBox(
-                width: 200, 
+                width: 200,
                 height: 50,
                 child: ContainerButtonModel(
-                  itext: "Check Out",
+                  itext: "Order",
                   containerWidth: MediaQuery.of(context).size.width,
                   bgColor: Color(0xFFDB3022),
                 ),

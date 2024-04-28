@@ -110,12 +110,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           return;
                         }
                         AuthenticationController x = Get.find();
+                        showLoadingAnimation(context);
                         var isSuccess = await x.login(
                             accountId: controllerUsername.text,
                             password: controllerPassword.text);
+                        Navigator.pop(context);
                         if (isSuccess) {
                           showSnackBar(content: "Login Successfully");
-                          await Future.delayed(Duration(seconds: 1));
                           Navigator.push(
                               context,
                               MaterialPageRoute(

@@ -1,34 +1,24 @@
-import 'package:brainiaccommerce2/shared/constant.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:brainiaccommerce2/controller/favourite_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
+
+import 'package:brainiaccommerce2/model/favourite_model.dart';
+import 'package:brainiaccommerce2/shared/constant.dart';
 import 'package:get/get.dart';
 
-class ProductCardItem extends StatefulWidget {
+class ProductCardItem extends StatelessWidget {
   const ProductCardItem({
-    super.key,
-    // required this.product,
-    // required this.press,
-  });
-  // final Product product;
-  // final GestureTapCallback press;
-
-  @override
-  State<ProductCardItem> createState() => _ProductCardItemState();
-}
-
-class _ProductCardItemState extends State<ProductCardItem> {
-  late bool isSelected;
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void changeStatus() {}
+    Key? key,
+    required this.model,
+  }) : super(key: key);
+  final FavoriteModel model;
 
   @override
   Widget build(BuildContext context) {
+    FavouriteController controler = Get.find();
     return GestureDetector(
       onTap: () {},
       child: Column(
@@ -46,8 +36,7 @@ class _ProductCardItemState extends State<ProductCardItem> {
                         border: Border.all(
                             color: kSecondaryColor.withOpacity(0.3))),
                     child: CachedNetworkImage(
-                      imageUrl:
-                          'https://images.iphonephotographyschool.com/24756/1120/portrait-photography.jpg',
+                      imageUrl: model.imgUrl,
                       placeholder: (context, url) =>
                           const CircularProgressIndicator.adaptive(),
                       errorWidget: (context, url, error) =>
@@ -62,9 +51,7 @@ class _ProductCardItemState extends State<ProductCardItem> {
                 right: 3,
                 child: GestureDetector(
                   onTap: () {
-                    setState(() {
-                      changeStatus();
-                    });
+                    controler.evenClickFavourite(model.id);
                   },
                   child: Container(
                       height: 30,
@@ -84,7 +71,7 @@ class _ProductCardItemState extends State<ProductCardItem> {
             ],
           ),
           Text(
-            " widget.product.productName!",
+            model.name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
@@ -115,7 +102,7 @@ class _ProductCardItemState extends State<ProductCardItem> {
             height: 5,
           ),
           Text(
-            "400.000",
+            "${formatVND(int.parse(model.price))}",
             style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

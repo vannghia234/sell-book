@@ -41,9 +41,13 @@ class HomeController extends GetxController {
     var value = await ApiServiceClient.getDynamic(
       uri: APIServicePath.getProducts(accID: user.value.accountId!),
     );
-    List<ProductModel> list =
-        (value as List).map((e) => ProductModel.fromJson(e)).toList();
-    print("load product ${list[0].toJson()}");
+    List<ProductModel> list = List.empty();
+    try {
+      list = (value as List).map((e) => ProductModel.fromJson(e)).toList();
+    } catch (e) {
+      return [];
+    }
+
     return list;
   }
 }

@@ -1,35 +1,67 @@
 // import 'package:clippy_flutter/arc.dart';
+import 'package:brainiaccommerce2/controller/favourite_controller.dart';
+import 'package:brainiaccommerce2/core/ui/style/base_text_style.dart';
+import 'package:brainiaccommerce2/model/favourite_model.dart';
+import 'package:brainiaccommerce2/shared/constant.dart';
+import 'package:brainiaccommerce2/widgets/net_work_cache_image.dart';
 import 'package:clippy_flutter/clippy_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 
 import '../widgets/ItemBottomNavBar.dart';
 
-class ItemScreen extends StatelessWidget {
-  //const ItemPage({super.key});
+class ItemScreen extends StatefulWidget {
+  const ItemScreen(
+      {super.key,
+      required this.id,
+      required this.url,
+      required this.discription,
+      required this.price,
+      required this.name});
+  final String url, discription, price, name, id;
 
+  @override
+  State<ItemScreen> createState() => _ItemScreenState();
+}
+
+class _ItemScreenState extends State<ItemScreen> {
+  FavouriteController controller = Get.find();
+
+  bool isFavourite = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.grey[100])),
+              iconSize: 18,
+              onPressed: () {
+                controller.addFavourite(FavoriteModel(
+                    id: widget.id,
+                    imgUrl: widget.url,
+                    name: widget.name,
+                    price: widget.price));
+                setState(() {
+                  isFavourite = true;
+                });
+              },
+              icon: Icon(
+                (!isFavourite) ? Icons.favorite_outline : Icons.favorite,
+                color: kPrimaryColor,
+              ))
+        ],
+        centerTitle: true,
         title: Text('Detail Product'),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(
-          top: 5,
-        ),
+      body: SizedBox.expand(
         child: ListView(
           children: [
-            Padding(
-              padding: EdgeInsets.all(16),
-              child: Image.asset(
-                "images/campus_1.jpg",
-                height: 300,
-                // width: double.infinity,
-                // width: 100,
-              ),
-            ),
+            SizedBox(height: 300, child: ImageNetWorkWidget(url: widget.url)),
             Arc(
               edge: Edge.TOP,
               arcType: ArcType.CONVEY,
@@ -54,7 +86,7 @@ class ItemScreen extends StatelessWidget {
                               minRating: 1,
                               direction: Axis.horizontal,
                               itemCount: 5,
-                              itemSize: 18,
+                              itemSize: 16,
                               itemPadding: EdgeInsets.symmetric(horizontal: 4),
                               itemBuilder: (context, _) => Icon(
                                 Icons.star,
@@ -62,12 +94,11 @@ class ItemScreen extends StatelessWidget {
                               ),
                               onRatingUpdate: (index) {},
                             ),
-                            Text(
-                              "\14.850đ",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            Flexible(
+                              child: Text(
+                                  "${formatVND(int.parse(widget.price))}",
+                                  style: BaseTextStyle.label2(
+                                      color: kPrimaryColor)),
                             ),
                           ],
                         ),
@@ -77,52 +108,11 @@ class ItemScreen extends StatelessWidget {
                           top: 10,
                           bottom: 20,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Tập New Repete",
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Container(
-                              width: 90,
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(
-                                    CupertinoIcons.minus,
-                                    color: Colors.white,
-                                    size: 20,
-                                  ),
-                                  Text(
-                                    "1",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Icon(
-                                    CupertinoIcons.plus,
-                                    color: Colors.white,
-                                    size: 20,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child:
+                                Text(widget.name, style: BaseTextStyle.h6())),
                       ),
-
                       Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 15,
@@ -143,14 +133,12 @@ class ItemScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
-                                fontStyle: FontStyle.italic,
                               ),
                               textAlign: TextAlign.justify,
                             ),
                           ],
                         ),
                       ),
-
                       Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 15,
@@ -171,20 +159,18 @@ class ItemScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
-                                fontStyle: FontStyle.italic,
                               ),
                               textAlign: TextAlign.justify,
                             ),
                           ],
                         ),
                       ),
-
                       Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 10,
                         ),
                         child: Text(
-                          "Tập 4 Ô Ly Ngang 96 Trang - Campus New Repete 2017 - Màu Vàng - NB-ANRE96 là quyển tập 4 ô ly sở hữu kiểu dáng tinh tế, trang nhã với hoa văn trên bìa sổ độc đáo, ấn tượng màu sắc hài hòa kết hợp những cạnh bo mềm mại.\n Đặc biệt, sản phẩm với kích thước nhỏ gọn, tiện lợi giúp bạn dễ dàng để trong cặp, balo, túi xách mang theo mọi lúc, mọi nơi.",
+                          widget.discription,
                           style: TextStyle(
                             fontSize: 16,
                           ),
@@ -199,7 +185,12 @@ class ItemScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: ItemBottomNavBar(),
+      bottomNavigationBar: ItemBottomNavBar(
+          id: widget.id,
+          discription: this.widget.discription,
+          name: this.widget.name,
+          price: this.widget.price,
+          url: this.widget.url),
     );
   }
 }

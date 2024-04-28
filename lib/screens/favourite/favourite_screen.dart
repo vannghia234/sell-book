@@ -2,14 +2,13 @@ import 'package:brainiaccommerce2/screens/favourite/component/tabbar_view_produc
 import 'package:flutter/material.dart';
 
 class FavouriteScreen extends StatelessWidget {
-  static String routeName = '/favourite';
   const FavouriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: Padding(
@@ -17,6 +16,7 @@ class FavouriteScreen extends StatelessWidget {
           horizontal: 20,
         ),
         child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: Column(children: [
             const Align(
               alignment: Alignment.topLeft,

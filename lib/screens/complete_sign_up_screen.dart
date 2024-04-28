@@ -197,6 +197,7 @@ class _CompleteSignUpScreenState extends State<CompleteSignUpScreen> {
                         return;
                       }
                       AuthenticationController controller = Get.find();
+                      showLoadingAnimation(context);
                       var rs = await controller.register(
                           accountId: widget.data.accountID,
                           fullName: widget.data.fullName,
@@ -208,7 +209,8 @@ class _CompleteSignUpScreenState extends State<CompleteSignUpScreen> {
                           birthDay: BirthdayController.text,
                           schoolKey: schoolKeyController.text,
                           schoolYear: schoolYearController.text);
-                      print(rs);
+                      Navigator.pop(context);
+
                       if (rs) {
                         showSnackBar(
                           content: "Register Successfully",

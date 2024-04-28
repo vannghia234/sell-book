@@ -1,4 +1,8 @@
 import 'package:brainiaccommerce2/controller/home_controller.dart';
+import 'package:brainiaccommerce2/screens/ItemScreen.dart';
+import 'package:brainiaccommerce2/shared/constant.dart';
+import 'package:brainiaccommerce2/widgets/net_work_cache_image.dart';
+import 'package:brainiaccommerce2/widgets/product_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -7,11 +11,13 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../widgets/CategoriesWidget.dart';
-import '../widgets/PopularItemsWidget.dart';
 
-List imagesList2 = [
-  "images/banner_1.jpeg",
-  "images/banner_2.jpg",
+List<String> imagesList2 = [
+  "https://img1.etsystatic.com/197/0/14200326/il_fullxfull.1267148033_pa5j.jpg",
+  "https://i.pinimg.com/originals/2c/c5/95/2cc595a0018f2af3481b19a0b00cd69a.jpg",
+  "https://th.bing.com/th/id/R.fe1bd1074c74deebc6736419107e2719?rik=cGlqYttAfbPJhQ&pid=ImgRaw&r=0",
+  "https://hips.hearstapps.com/hmg-prod/images/ata100123cbgcovers-lo-64dd04077fc05.jpg?crop=1xw:0.6666666666666666xh;center,top&resize=1200:*",
+  "https://henricolibrary.org/images/easyblog_articles/269/20201015-Scary-Books-blog.jpg"
 ];
 
 class HomeScreen extends StatelessWidget {
@@ -20,7 +26,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var x = Get.put(HomeController());
-
+    x.loadUserInfo();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -87,25 +93,21 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 20),
                   CarouselSlider(
                     options: CarouselOptions(
-                      height: 200.0,
-                      autoPlay: true,
-                      enlargeCenterPage: true,
-                    ),
+                        autoPlay: true,
+                        enlargeCenterPage: true,
+                        // pauseAutoPlayOnTouch: false,
+                        autoPlayCurve: Curves.fastOutSlowIn),
                     items: imagesList2.map((image) {
                       return Container(
                         decoration: BoxDecoration(boxShadow: [
                           BoxShadow(
-                              blurRadius: 20,
-                              spreadRadius: 0.7,
-                              offset: Offset(0, 4),
+                              blurRadius: 15,
+                              offset: Offset(4, -6),
                               color: Colors.black26),
                         ]),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
-                          child: Image.asset(
-                            image,
-                            fit: BoxFit.cover,
-                          ),
+                          child: ImageNetWorkWidget(url: image),
                         ),
                       );
                     }).toList(),
@@ -122,24 +124,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: FutureBuilder(
-                      future: x.getListProduct(),
-                      builder: (context, snapshot) => Row(
-                        children: [
-                          ...List.generate(
-                            3,
-                            (index) => Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 20, left: 10),
-                              // child: ProductCard(description: , imgUrl: , name: , price: ,),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  _ProductList(x),
 
                   Padding(
                     padding: EdgeInsets.only(top: 40, bottom: 20),
@@ -151,26 +136,70 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ...List.generate(
-                          3,
-                          (index) => Padding(
-                            padding: const EdgeInsets.only(right: 20, left: 10),
-                            // child: ProductCard(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  _ProductList(x),
                 ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  SingleChildScrollView _ProductList(HomeController x) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: FutureBuilder(
+          future: x.getListProduct(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data?.length == 0) {
+                return CircularProgressIndicator.adaptive(
+                  valueColor: AlwaysStoppedAnimation(kPrimaryColor),
+                );
+              }
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...List.generate(
+                    snapshot.data!.length,
+                    (index) => InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ItemScreen(
+                                id: snapshot.data![index].id!.toString(),
+                                discription: snapshot.data![index].description!,
+                                name: snapshot.data![index].name!,
+                                price: snapshot.data![index].price!.toString(),
+                                url: snapshot.data![index].imageUrl!,
+                              ),
+                            ));
+                      },
+                      child: ProductCard(
+                        description: snapshot.data![index].description!,
+                        imgUrl: snapshot.data![index].imageUrl!,
+                        name: snapshot.data![index].name!,
+                        price: snapshot.data![index].price!.toString(),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator.adaptive(
+                valueColor: AlwaysStoppedAnimation(kPrimaryColor),
+              );
+            }
+            if (snapshot.hasError) {
+              return Text("error");
+            }
+            return SizedBox.shrink();
+          }),
     );
   }
 }

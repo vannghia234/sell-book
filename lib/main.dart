@@ -1,5 +1,6 @@
 import 'package:brainiaccommerce2/controller/authentication_controller.dart';
 import 'package:brainiaccommerce2/controller/cart_controller.dart';
+import 'package:brainiaccommerce2/controller/favourite_controller.dart';
 import 'package:brainiaccommerce2/core/ui/style/base_text_style.dart';
 import 'package:brainiaccommerce2/screens/login_screen.dart';
 import 'package:brainiaccommerce2/shared/constant.dart';
@@ -15,6 +16,7 @@ void main() {
 void loadController() {
   Get.put(AuthenticationController());
   Get.put(CartController());
+  Get.put(FavouriteController());
 }
 
 class MyApp extends StatelessWidget {

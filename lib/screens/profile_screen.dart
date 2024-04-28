@@ -1,6 +1,7 @@
 import 'package:brainiaccommerce2/controller/home_controller.dart';
+import 'package:brainiaccommerce2/core/ui/style/base_text_style.dart';
 import 'package:brainiaccommerce2/screens/edit_profile_screen.dart';
-import 'package:brainiaccommerce2/screens/favorites_screen.dart';
+import 'package:brainiaccommerce2/screens/favourite/favourite_screen.dart';
 import 'package:brainiaccommerce2/screens/login_screen.dart';
 import 'package:brainiaccommerce2/screens/otp_screen.dart';
 import 'package:brainiaccommerce2/widgets/container_buton_model.dart';
@@ -80,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => FavoritesScreen(),
+                            builder: (context) => FavouriteScreen(),
                           ),
                         );
                       },
@@ -123,7 +124,10 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(
                       height: 12.0,
                     ),
-                    const Text("Brainiac Store since 2024")
+                    Text(
+                      "Brainiac Store since 2024.",
+                      style: BaseTextStyle.body3(color: Colors.grey),
+                    )
                   ],
                 ),
               ),
