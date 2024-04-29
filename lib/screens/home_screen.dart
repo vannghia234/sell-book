@@ -17,7 +17,6 @@ List<String> imagesList2 = [
   "https://i.pinimg.com/originals/2c/c5/95/2cc595a0018f2af3481b19a0b00cd69a.jpg",
   "https://th.bing.com/th/id/R.fe1bd1074c74deebc6736419107e2719?rik=cGlqYttAfbPJhQ&pid=ImgRaw&r=0",
   "https://hips.hearstapps.com/hmg-prod/images/ata100123cbgcovers-lo-64dd04077fc05.jpg?crop=1xw:0.6666666666666666xh;center,top&resize=1200:*",
-  "https://henricolibrary.org/images/easyblog_articles/269/20201015-Scary-Books-blog.jpg"
 ];
 
 class HomeScreen extends StatelessWidget {
