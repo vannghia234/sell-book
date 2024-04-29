@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Container(
                         height: 50,
-                        width: MediaQuery.of(context).size.width / 1.5,
+                        width: MediaQuery.of(context).size.width / 1.4,
                         decoration: BoxDecoration(
                           color: Colors.black12.withOpacity(0.05),
                           borderRadius: BorderRadius.circular(12),
