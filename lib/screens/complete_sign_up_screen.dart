@@ -209,6 +209,8 @@ class _CompleteSignUpScreenState extends State<CompleteSignUpScreen> {
                           birthDay: BirthdayController.text,
                           schoolKey: schoolKeyController.text,
                           schoolYear: schoolYearController.text);
+                      await Future.delayed(Duration(milliseconds: 1000));
+
                       Navigator.pop(context);
 
                       if (rs) {

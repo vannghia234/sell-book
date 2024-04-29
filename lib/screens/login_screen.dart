@@ -114,6 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         var isSuccess = await x.login(
                             accountId: controllerUsername.text,
                             password: controllerPassword.text);
+                        await Future.delayed(Duration(milliseconds: 1000));
                         Navigator.pop(context);
                         if (isSuccess) {
                           showSnackBar(content: "Login Successfully");

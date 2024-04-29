@@ -4,6 +4,7 @@ import 'package:brainiaccommerce2/screens/edit_profile_screen.dart';
 import 'package:brainiaccommerce2/screens/favourite/favourite_screen.dart';
 import 'package:brainiaccommerce2/screens/login_screen.dart';
 import 'package:brainiaccommerce2/screens/otp_screen.dart';
+import 'package:brainiaccommerce2/shared/constant.dart';
 import 'package:brainiaccommerce2/widgets/container_buton_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -111,7 +112,10 @@ class ProfileScreen extends StatelessWidget {
                       title: const Text("Change Password"),
                     ),
                     ListTile(
-                      onTap: () {
+                      onTap: () async {
+                        showLoadingAnimation(context);
+                        await Future.delayed(Duration(milliseconds: 1000));
+                        Navigator.pop(context);
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
